@@ -1,5 +1,6 @@
 package ro.z2h.controller;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import ro.z2h.annotation.MyController;
 import ro.z2h.annotation.MyRequestMethod;
 import ro.z2h.domain.Employee;
@@ -23,11 +24,25 @@ public class EmployeeController {
 
     }
     @MyRequestMethod(urlPath = "/one")
-    public Employee getOneEmployees(Long myId){
+      public Employee getOneEmployees(String idEmployee){
 
 
-       EmployeeServiceImpl myService = new EmployeeServiceImpl();
-        return myService.findOneEmployee(myId);
+        EmployeeServiceImpl myService = new EmployeeServiceImpl();
+        return myService.findOneEmployee(Long.parseLong(idEmployee));
+    }
+    @MyRequestMethod(urlPath = "/delete",methodType = "DELETE")
+    public String deleteOneEmployee(String idEmployee){
+
+
+        EmployeeServiceImpl myService = new EmployeeServiceImpl();
+        return myService.deleteOneEmployee(Long.parseLong(idEmployee));
+    }
+    @MyRequestMethod(urlPath = "/add",methodType = "PUT")
+    public String addOneEmployee(String myEmp){
+        ObjectMapper myObj = new ObjectMapper();
+        //myObj.getJsonFactory(myEmp);
+        EmployeeServiceImpl myService = new EmployeeServiceImpl();
+        return myService.addOneEmployee();
     }
 
 }

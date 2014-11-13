@@ -24,10 +24,10 @@ public class DepartmentController {
 
     }
     @MyRequestMethod(urlPath = "/one")
-    public Department getOneDepartment(Long myId){
+    public Department getOneDepartment(String idDepartment){
 
 
         DepartmentServiceImpl myService = new DepartmentServiceImpl();
-        return myService.findOneDepartment(myId);
+        return myService.findOneDepartment(Long.parseLong(idDepartment));
     }
 }

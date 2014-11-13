@@ -13,7 +13,7 @@ hrApp.controller('EmployeeViewController', ['$scope', '$http', '$routeParams', f
             $scope.jobs = data;
         });
 
-    $http({url: 'http://localhost:8282/datamodel/employees/findOne/'+$routeParams.employeeid, method: 'GET'}).
+    $http({url: 'http://localhost:8080/app/mvc/employee/one?idEmployee='+$routeParams.employeeid, method: 'GET'}).
         success(function (data) {
             $scope.employee = data;
         });

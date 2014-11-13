@@ -20,6 +20,8 @@ import java.io.PrintWriter;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -78,6 +80,11 @@ public class MyDispatcherServlet extends HttpServlet {
         //super.doGet(req, resp);
     }
 
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        dispatchReply("DELETE", req, resp);
+    }
+
     private void dispatchReply(String httpMethod, HttpServletRequest req, HttpServletResponse resp) {
             /*DISPATCH()- Delegare catre un Application Controller si returnarea unui raspuns */
         Object r = dispatch(req, resp);
@@ -115,6 +122,7 @@ public class MyDispatcherServlet extends HttpServlet {
         //String myString = req.getpara;
 
         req.getParameterMap();
+       // Long myId = Long.parseLong(req.getParameter("idEmployee"));
 
         MethodAttributes myMethods = myMap.get(pathInfo);
         try {
@@ -122,9 +130,15 @@ public class MyDispatcherServlet extends HttpServlet {
            Class myControllerClass = Class.forName(myMethods.getControllerClass());
            Object controller = myControllerClass.newInstance();
             Method controllerMethod = myControllerClass.getMethod(myMethods.getMethodName(),myMethods.getMethodParameters());
-            Object invoke = controllerMethod.invoke(controller,myMethods.getMethodParameters());
 
 
+
+            Parameter[] myPara = controllerMethod.getParameters();
+                ArrayList<String> myList = new ArrayList<String>();
+                for(Parameter onePara : myPara){
+                    myList.add(req.getParameter(onePara.getName()));
+                }
+            Object invoke = controllerMethod.invoke(controller,(String[])myList.toArray(new String[0]));
             return invoke;}
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -154,7 +168,10 @@ public class MyDispatcherServlet extends HttpServlet {
         return "HELLO";
     }
 
-
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        dispatchReply("PUT",req,resp);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

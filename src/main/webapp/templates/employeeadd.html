@@ -24,7 +24,7 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="departmentId">Department:</label>
-                            <select id="departmentId" ng-model="employee.departmentId" class="form-control" required
+                            <select id="departmentId" ng-model="employee.department" class="form-control" required
                                     ng-options="v as v.departmentName for v in departments">
                             </select>
                         </div>
@@ -32,7 +32,7 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="manager">Manager:</label>
-                            <select id="manager" ng-model="employee.managerId" class="form-control" required
+                            <select id="manager" ng-model="employee.manager" class="form-control" required
                                     ng-options="v as v.firstName+' '+ v.lastName for v in managers">
                             </select>
                         </div>

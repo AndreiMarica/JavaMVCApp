@@ -10,7 +10,8 @@ public interface EmployeeService {
 
      List<Employee> findAllEmployees();
      Employee findOneEmployee(Long myId);
-
+     String deleteOneEmployee(Long myId);
+     String addOneEmployee(Employee myEmp);
 
 
 }

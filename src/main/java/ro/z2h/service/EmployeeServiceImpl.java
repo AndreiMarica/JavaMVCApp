@@ -41,4 +41,31 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return myEmp;
     }
+
+    @Override
+    public String deleteOneEmployee(Long myId) {
+        Connection con = DatabaseManager.getConnection("ZTH_13","passw0rd");
+        EmployeeDao myDao= new EmployeeDao();
+        Employee myEmp= new Employee();
+
+        try {
+            myEmp=myDao.getEmployeeById(con,myId);
+            myDao.deleteEmployee(myEmp,con);
+            return "EMPLOYEE HAS BEEN DELETED FROM DATABASE";
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return "COULD NOT DELETE EMPLOYEE!";
+    }
+
+    @Override
+    public String addOneEmployee(Employee myEmp) {
+        Connection con = DatabaseManager.getConnection("ZTH_13","passw0rd");
+        EmployeeDao myDao= new EmployeeDao();
+        myDao.saveEmployee(myEmp,con);
+
+        return "EMPLOYEE ADDED!";
+    }
 }
