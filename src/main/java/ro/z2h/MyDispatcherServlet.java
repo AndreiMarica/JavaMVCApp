@@ -48,6 +48,7 @@ public class MyDispatcherServlet extends HttpServlet {
                             myAtrib.setControllerClass(aClass.getName());
                             myAtrib.setMethodName(myMethod.getName());
                             myAtrib.setMethodType(mthAnnotation.methodType());
+                            myAtrib.setMethodParameters(myMethod.getParameterTypes());
 
                             myMap.put(ctrlAnnotation.urlPath()+mthAnnotation.urlPath(),myAtrib);
                             System.out.println("For URL: "+mthAnnotation.urlPath()+" has the method: "+myMethod.toString());
@@ -113,15 +114,15 @@ public class MyDispatcherServlet extends HttpServlet {
 
         //String myString = req.getpara;
 
-
+        req.getParameterMap();
 
         MethodAttributes myMethods = myMap.get(pathInfo);
         try {
             if(myMethods != null){
            Class myControllerClass = Class.forName(myMethods.getControllerClass());
            Object controller = myControllerClass.newInstance();
-            Method controllerMethod = myControllerClass.getMethod(myMethods.getMethodName());
-            Object invoke = controllerMethod.invoke(controller,myId);
+            Method controllerMethod = myControllerClass.getMethod(myMethods.getMethodName(),myMethods.getMethodParameters());
+            Object invoke = controllerMethod.invoke(controller,myMethods.getMethodParameters());
 
 
             return invoke;}

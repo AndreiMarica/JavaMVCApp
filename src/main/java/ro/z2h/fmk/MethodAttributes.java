@@ -1,5 +1,7 @@
 package ro.z2h.fmk;
 
+import java.util.ArrayList;
+
 /**
  * MethodAttributes.java
  */
@@ -8,6 +10,16 @@ public class MethodAttributes {
     String controllerClass;
     String methodName;
     String methodType;
+
+    public Class<?>[] getMethodParameters() {
+        return methodParameters;
+    }
+
+    public void setMethodParameters(Class<?>[] methodParameters) {
+        this.methodParameters = methodParameters;
+    }
+
+    Class<?>[] methodParameters;
 
     public String getControllerClass() {
         return controllerClass;
